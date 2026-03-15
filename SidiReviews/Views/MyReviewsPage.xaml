@@ -1,0 +1,139 @@
+<Page
+    x:Class="SidiReviews.Views.MyReviewsPage"
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SidiReviews.Views"
+xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:components="using:SidiReviews.Components"
+    xmlns:model="using:SidiReviews.Model"
+    xmlns:viewmodel="using:SidiReviews.ViewModel"
+    mc:Ignorable="d"
+    x:Name="PageRoot">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <components:Navbar Grid.Row="0"/>
+
+        <Grid Grid.Row="1">
+            
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0, 1">
+                    <GradientStop Color="#040e1a" Offset="0"/>
+                    <GradientStop Color="#10477f" Offset="0.5"/>
+                    <GradientStop Color="#040e1a" Offset="1"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+
+            <ScrollViewer Padding="20" VerticalScrollBarVisibility="Auto">
+
+                <StackPanel>
+                    
+                    <TextBlock Text="Minhas Reviews"
+                               Style="{StaticResource TitleTextBlockStyle}"
+                               Foreground="White"
+                               Margin="0,0,0,20"
+                               HorizontalAlignment="Center"/>
+
+                    <ListView ItemsSource="{Binding UserReviews}" SelectionMode="None" IsItemClickEnabled="False" Background="Transparent" MaxWidth="1000">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="model:Review">
+                                <Border Background="#22FFFFFF" CornerRadius="4" Margin="0,0,0,15" Padding="15">
+                                    
+                                    <Grid>
+                                        
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Image Grid.Column="0"
+                                               Source="{Binding Movies.ImagePath}"
+                                               Width="100"
+                                               Height="150"
+                                               Stretch="UniformToFill"
+                                               VerticalAlignment="Top"
+                                               Margin="0,0,15,0"/>
+
+                                        <Grid Grid.Column="1">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+
+                                            <TextBlock Grid.Row="0"
+                                                       Text="{Binding Movies.Title}"
+                                                       Foreground="White"
+                                                       FontWeight="SemiBold"
+                                                       Style="{StaticResource SubtitleTextBlockStyle}"
+                                                       Margin="0,0,0,5"/>
+
+                                            <StackPanel Grid.Row="1"
+                                                        Orientation="Horizontal"
+                                                        Spacing="10"
+                                                        Margin="0,0,0,10">
+                                                
+                                                <TextBlock Text="{Binding Rating}" 
+                                                           Foreground="Gold"/>
+                                                
+                                            </StackPanel>
+
+                                            <TextBlock Grid.Row="2"
+                                                       Text="{Binding Content}"
+                                                       TextWrapping="Wrap"
+                                                       Foreground="#DDDDDD"
+                                                       Margin="0,0,0,10"/>
+
+                                            <Grid Grid.Row="3">
+                                                
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                
+                                                <TextBlock Grid.Column="0"
+                                                           Text="{Binding CreationDate}"
+                                                           Style="{StaticResource CaptionTextBlockStyle}"
+                                                           Opacity="0.7"
+                                                           Foreground="#CCCCCC"
+                                                           VerticalAlignment="Center"/>
+                                                
+                                                <StackPanel Grid.Column="1"
+                                                            Orientation="Horizontal"
+                                                            Spacing="10">
+                                                    
+                                                    <Button ToolTipService.ToolTip="Editar Review"
+                                                            Command="{Binding DataContext.GoToEditReviewCommand, ElementName=PageRoot}"
+                                                            CommandParameter="{Binding}">
+                                                        <SymbolIcon Symbol="Edit"/>
+                                                    </Button>
+                                                    
+                                                    <Button ToolTipService.ToolTip="Excluir Review"
+                                                            Background="#ff0000"
+                                                            Command="{Binding DataContext.DeleteReviewCommand, ElementName=PageRoot}"
+                                                            CommandParameter="{Binding}">
+                                                        <SymbolIcon Symbol="Delete"/>
+                                                    </Button>
+                                                    
+                                                </StackPanel>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+
+                    </ListView>
+
+                </StackPanel>
+            </ScrollViewer>
+
+        </Grid>
+    </Grid>
+</Page>

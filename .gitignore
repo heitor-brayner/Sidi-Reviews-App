@@ -1,0 +1,85 @@
+# ============================================================
+#  SidiReviews — WinUI 3 / .NET 8 / Visual Studio .gitignore
+# ============================================================
+
+# ----- Visual Studio ----------------------------------------
+.vs/
+*.user
+*.userosscache
+*.sln.docstates
+*.suo
+*.rsuser
+
+# ----- Build output -----------------------------------------
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# ----- .NET / MSBuild generated files ----------------------
+*.FrameworkVersion
+project.lock.json
+project.fragment.lock.json
+artifacts/
+**/Properties/launchSettings.json
+
+# ----- NuGet ------------------------------------------------
+*.nupkg
+*.snupkg
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+*.nuget.props
+*.nuget.targets
+project.nuget.cache
+nuget.config
+
+# ----- WinUI / UWP / MSIX packaging ------------------------
+AppPackages/
+BundleArtifacts/
+Package.StoreAssociation.xml
+_pkginfo.txt
+*.appx
+*.appxbundle
+*.appxupload
+*.msix
+*.msixbundle
+*.msixupload
+
+# ----- Signing key (NEVER commit private keys) --------------
+*_TemporaryKey.pfx
+*.pfx
+*.snk
+
+# ----- Publish profiles (user-specific paths) ---------------
+**/Properties/PublishProfiles/*.pubxml.user
+
+# ----- Test results -----------------------------------------
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+*.trx
+*.coverage
+*.coveragexml
+TestResult.xml
+
+# ----- Rider ------------------------------------------------
+.idea/
+*.sln.iml
+
+# ----- Windows shortcuts / thumbnails -----------------------
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# ----- macOS (if any collaborators use Mac) -----------------
+.DS_Store
+.AppleDouble
+.LSOverride
