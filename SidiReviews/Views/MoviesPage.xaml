@@ -12,7 +12,7 @@ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     
     <Grid Background="#28313b">
-        
+
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -21,7 +21,7 @@ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         <components:Navbar Grid.Row="0"/>
 
         <Grid Grid.Row="1">
-            
+
             <Grid.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                     <GradientStop Color="#040e1a" Offset="0"/>
@@ -34,30 +34,34 @@ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       ItemsSource="{Binding Movies}"
                       SelectedItem="{Binding SelectedMovie, Mode=TwoWay}"
                       SelectionMode="Single"
-                      IsItemClickEnabled="False" Padding="24" HorizontalAlignment="Stretch"
+                      IsItemClickEnabled="True"
+                      Padding="24"
+                      Width="1100"
+                      HorizontalAlignment="Center"
                       VerticalAlignment="Stretch"
-                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      Visibility="Visible"
+                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
                       ScrollViewer.VerticalScrollMode="Enabled"
                       ScrollViewer.IsVerticalRailEnabled="True">
-                
+
                 <GridView.ItemsPanel>
-                    
+
                     <ItemsPanelTemplate>
                         <ItemsWrapGrid Orientation="Horizontal"
                                        HorizontalAlignment="Center"
                                        ItemWidth="200"
                                        Margin="0,0,-10,-10"/>
                     </ItemsPanelTemplate>
-                    
+
                 </GridView.ItemsPanel>
 
                 <GridView.ItemTemplate>
-                    
+
                     <DataTemplate x:DataType="model:Movie">
-                        
+
                         <Grid Width="180" Height="300" Margin="10" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                               CornerRadius="4" BorderThickness="1" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
-                            
+
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="Auto"/>
@@ -69,29 +73,32 @@ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                                 </Image.Source>
                             </Image>
 
-                            <StackPanel Grid.Row="1" Padding="10" Spacing="4">
-                                
+                            <StackPanel Grid.Row="1" Orientation="Vertical" Padding="10" Spacing="4">
+
                                 <TextBlock Text="{Binding Title}"
+                                           FontSize="14"
                                            FontWeight="SemiBold"
+                                           Foreground="{ThemeResource TextFillColorPrimaryBrush}"
                                            TextTrimming="CharacterEllipsis"
                                            MaxLines="2"
+                                           Width="160"
                                            HorizontalAlignment="Stretch"
                                            ToolTipService.ToolTip="{Binding Title}"/>
-                                
-                                <TextBlock FontSize="12" Opacity="0.8">
+
+                                <TextBlock FontSize="12" Opacity="0.8" Foreground="{ThemeResource TextFillColorSecondaryBrush}">
                                     <Run Text="Lançamento:"/> <Run Text="{Binding ReleaseDate.Year}"/>
                                 </TextBlock>
-                                
+
                             </StackPanel>
 
                             <Border Grid.RowSpan="2" BorderThickness="2" CornerRadius="{Binding Path=CornerRadius, RelativeSource={RelativeSource TemplatedParent}}"
                                     BorderBrush="{ThemeResource SystemAccentColor}"
                                     Opacity="0">
-                                
+
                                 <Border.Background>
                                     <SolidColorBrush Color="{ThemeResource SystemAccentColor}" Opacity="0.1"/>
                                 </Border.Background>
-                                
+
                                 <VisualStateManager.VisualStateGroups>
                                     <VisualStateGroup x:Name="CommonStates">
                                         <VisualState x:Name="Normal" />
@@ -107,12 +114,12 @@ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                                         </VisualState>
                                     </VisualStateGroup>
                                 </VisualStateManager.VisualStateGroups>
-                                
+
                             </Border>
                         </Grid>
                     </DataTemplate>
                 </GridView.ItemTemplate>
-                
+
             </GridView>
         </Grid>
     </Grid>
