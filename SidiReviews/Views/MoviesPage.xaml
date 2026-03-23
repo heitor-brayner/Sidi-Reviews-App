@@ -57,10 +57,10 @@ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 
                 <GridView.ItemTemplate>
 
-                    <DataTemplate>
+                    <DataTemplate x:DataType="model:Movie">
 
-                        <Grid Width="180" Height="300" Margin="10" Background="#1E2D3D"
-                              CornerRadius="4" BorderThickness="1" BorderBrush="#2E4060">
+                        <Grid Width="180" Height="300" Margin="10" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                              CornerRadius="4" BorderThickness="1" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
 
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
@@ -78,25 +78,25 @@ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                                 <TextBlock Text="{Binding Title}"
                                            FontSize="14"
                                            FontWeight="SemiBold"
-                                           Foreground="White"
+                                           Foreground="{ThemeResource TextFillColorPrimaryBrush}"
                                            TextTrimming="CharacterEllipsis"
                                            MaxLines="2"
                                            Width="160"
                                            HorizontalAlignment="Stretch"
                                            ToolTipService.ToolTip="{Binding Title}"/>
 
-                                <TextBlock FontSize="12" Opacity="0.8" Foreground="#CCCCCC">
+                                <TextBlock FontSize="12" Opacity="0.8" Foreground="{ThemeResource TextFillColorSecondaryBrush}">
                                     <Run Text="Lançamento:"/> <Run Text="{Binding ReleaseDate.Year}"/>
                                 </TextBlock>
 
                             </StackPanel>
 
                             <Border Grid.RowSpan="2" BorderThickness="2" CornerRadius="{Binding Path=CornerRadius, RelativeSource={RelativeSource TemplatedParent}}"
-                                    BorderBrush="#0078D4"
+                                    BorderBrush="{ThemeResource SystemAccentColor}"
                                     Opacity="0">
 
                                 <Border.Background>
-                                    <SolidColorBrush Color="#0078D4" Opacity="0.1"/>
+                                    <SolidColorBrush Color="{ThemeResource SystemAccentColor}" Opacity="0.1"/>
                                 </Border.Background>
 
                                 <VisualStateManager.VisualStateGroups>

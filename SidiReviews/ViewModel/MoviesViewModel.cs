@@ -14,8 +14,11 @@ namespace SidiReviews.ViewModel
         private readonly IMovieService _movieService;
         private readonly INavigatationService _navigationService;
 
-        public int TotalMoviesLoaded = 0;
-        public string LastErrorMessage = string.Empty;
+        [ObservableProperty]
+        private int _totalMoviesLoaded;
+
+        [ObservableProperty]
+        private string _lastErrorMessage = string.Empty;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(HasMovies))]
@@ -30,7 +33,7 @@ namespace SidiReviews.ViewModel
         {
             _movieService = movieService;
             _navigationService = navigationService;
-            LoadMovies();
+            _ = LoadMovies();
         }
 
         partial void OnSelectedMovieChanged(Movie? value)
@@ -41,7 +44,7 @@ namespace SidiReviews.ViewModel
             }
         }
 
-        public async void LoadMovies()
+        public async Task LoadMovies()
         {
             Movies.Clear();
             TotalMoviesLoaded = 0;
@@ -56,9 +59,10 @@ namespace SidiReviews.ViewModel
                 }
                 OnPropertyChanged(nameof(HasMovies));
             }
-            catch
+            catch (Exception ex)
             {
                 LastErrorMessage = "Failed to load movies.";
+                System.Diagnostics.Debug.WriteLine($"Error loading movies: {ex.Message}");
             }
         }
 
