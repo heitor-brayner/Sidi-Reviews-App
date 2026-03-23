@@ -14,23 +14,25 @@ namespace SidiReviews.ViewModel
         private readonly IMovieService _movieService;
         private readonly INavigatationService _navigationService;
 
-        
+        public int TotalMoviesLoaded = 0;
+        public string LastErrorMessage = string.Empty;
+
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(HasMovies))]
         private ObservableCollection<Movie> _movies = new ObservableCollection<Movie>();
 
-        
         [ObservableProperty]
         private Movie? _selectedMovie;
-       
+
         public bool HasMovies => Movies != null && Movies.Count > 0;
 
         public MoviesViewModel(IMovieService movieService, INavigatationService navigationService)
         {
             _movieService = movieService;
             _navigationService = navigationService;
-           
+            LoadMovies();
         }
+
         partial void OnSelectedMovieChanged(Movie? value)
         {
             if (value != null)
@@ -39,31 +41,29 @@ namespace SidiReviews.ViewModel
             }
         }
 
-        [RelayCommand]
-        private async Task LoadMoviesAsync()
+        public async void LoadMovies()
         {
             Movies.Clear();
+            TotalMoviesLoaded = 0;
 
             try
             {
                 var moviesList = await _movieService.GetAllMoviesAsync();
-                if (moviesList != null)
+                foreach (var movie in moviesList)
                 {
-                    foreach (var movie in moviesList)
-                    {
-                        Movies.Add(movie);
-                    }
-                    OnPropertyChanged(nameof(HasMovies));
+                    Movies.Add(movie);
+                    TotalMoviesLoaded++;
                 }
+                OnPropertyChanged(nameof(HasMovies));
             }
-            catch (Exception ex)
+            catch
             {
-                System.Diagnostics.Debug.WriteLine($"Erro ao carregar filmes: {ex.Message}");
+                LastErrorMessage = "Failed to load movies.";
             }
         }
+
         private void NavigateToReviewsCore(int movieId)
         {
-
             _navigationService.NavigateToReviews("ReviewsPage", movieId);
 
             var dispatcherQueue = DispatcherQueue.GetForCurrentThread();
@@ -71,7 +71,7 @@ namespace SidiReviews.ViewModel
             {
                 dispatcherQueue.TryEnqueue(() =>
                 {
-                    SelectedMovie = null; 
+                    SelectedMovie = null;
                 });
             }
             else
@@ -79,6 +79,5 @@ namespace SidiReviews.ViewModel
                 SelectedMovie = null;
             }
         }
-
     }
 }
