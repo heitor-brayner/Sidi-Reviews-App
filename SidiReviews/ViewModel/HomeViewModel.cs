@@ -10,17 +10,22 @@ namespace SidiReviews.ViewModel
         [ObservableProperty]
         private string _username;
 
+        [ObservableProperty]
+        private string _welcomeMessage;
+
         public HomeViewModel(ISessionService sessionService)
         {
             _sessionService = sessionService;
             LoadUserData();
         }
-        private void LoadUserData() 
+
+        private void LoadUserData()
         {
             var loggedUser = _sessionService.CurrentUser;
-            if (loggedUser != null) 
+            if (loggedUser != null)
             {
                 Username = loggedUser.UserName;
+                WelcomeMessage = $"Welcome back, {loggedUser.UserName}!";
             }
         }
     }
